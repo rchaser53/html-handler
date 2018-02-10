@@ -1,61 +1,50 @@
 {
-  "name": "html-handler",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "pretsc": "rimraf dest",
-    "start": "npm run tsc && node dest/index.js",
-    "tsc": "tsc -p .",
-    "prettier": "prettier --write \"**/*.{md,js,ts,json}\" && git add .",
-    "test": "jest --runInBand --coverage",
-    "precommit": "lint-staged",
-    "prepublishOnly": "npm run prettier && npm run test && npm run tsc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rchaser53/html-handler.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "lint-staged": {
-    "*.ts": [
-      "npm run prettier",
-      "git add"
-    ]
-  },
-  "bugs": {
-    "url": "https://github.com/rchaser53/html-handler/issues"
-  },
-  "homepage": "https://github.com/rchaser53/html-handler#readme",
-  "dependencies": {
-    "parse5": "^4.0.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.ts$": "<rootDir>/preprocessor.js"
-    },
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "dest"
-    ],
-    "testMatch": [
-      "**/__tests__/*.(ts|js)"
-    ]
-  },
-  "devDependencies": {
-    "@types/jest": "^22.1.2",
-    "@types/node": "^8.9.1",
-    "husky": "^0.14.3",
-    "jest": "^22.2.1",
-    "lint-staged": "^6.1.0",
-    "prettier": "^1.10.2",
-    "rimraf": "^2.6.2",
-    "typescript": "^2.7.1"
-  }
+	"name": "html-handler",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"pretsc": "rimraf dest",
+		"start": "npm run tsc && node dest/index.js",
+		"tsc": "tsc -p .",
+		"prettier": "prettier --write \"**/*.{md,js,ts,json}\" && git add .",
+		"test": "jest --runInBand --coverage",
+		"precommit": "lint-staged",
+		"prepublishOnly": "npm run prettier && npm run test && npm run tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rchaser53/html-handler.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"lint-staged": {
+		"*.ts": ["npm run prettier", "git add"]
+	},
+	"bugs": {
+		"url": "https://github.com/rchaser53/html-handler/issues"
+	},
+	"homepage": "https://github.com/rchaser53/html-handler#readme",
+	"dependencies": {
+		"parse5": "^4.0.0"
+	},
+	"jest": {
+		"moduleFileExtensions": ["ts", "js"],
+		"transform": {
+			"^.+\\.ts$": "<rootDir>/preprocessor.js"
+		},
+		"testPathIgnorePatterns": ["<rootDir>/node_modules/", "dest"],
+		"testMatch": ["**/__tests__/*.(ts|js)"]
+	},
+	"devDependencies": {
+		"@types/jest": "^22.1.2",
+		"@types/node": "^8.9.1",
+		"husky": "^0.14.3",
+		"jest": "^22.2.1",
+		"lint-staged": "^6.1.0",
+		"prettier": "^1.10.2",
+		"rimraf": "^2.6.2",
+		"typescript": "^2.7.1"
+	}
 }
