@@ -1,11 +1,14 @@
 // it's not correct type. just for this implements
 export interface ParsedNode {
-  attrs: { name: string, value: any },
-  childNodes: ParsedNode[],
-  namespaceURI: string,
-  nodeName: string,
-  parentNode: ParsedNode,
-  tagName: string,
+  attrs: {
+      name: string,
+      value: any
+    },
+    childNodes: ParsedNode[],
+    namespaceURI: string,
+    nodeName: string,
+    parentNode: ParsedNode,
+    tagName?: string,
 }
 
 // just wanna decrease the parameters for developer
@@ -20,7 +23,7 @@ export const recursiveGetTarget = (targetNode: ParsedNode, key: string, targetAr
   return targetArray
 }
 
-const searchNode = (targetNode: ParsedNode, key: string, targetArray: ParsedNode[] ) => {
+const searchNode = (targetNode: ParsedNode, key: string, targetArray: ParsedNode[]) => {
   targetNode.childNodes.forEach((node: ParsedNode) => {
     if (node.tagName === key) {
       targetArray.push(node)
