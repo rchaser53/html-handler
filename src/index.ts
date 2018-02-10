@@ -8,13 +8,24 @@ export interface ParsedNode {
   tagName: string,
 }
 
-export const getTarget = (targetNode: ParsedNode, key: string, retArray: ParsedNode[] = []): ParsedNode[] => {
-  targetNode.childNodes.forEach((node: any) => {
+// just wanna decrease the parameters for developer
+export const getTarget = (targetNode: ParsedNode, key: string): ParsedNode[] => {
+  let returnArray: ParsedNode[] = []
+  searchNode(targetNode, key, returnArray)
+  return returnArray
+}
+
+export const recursiveGetTarget = (targetNode: ParsedNode, key: string, targetArray: ParsedNode[]): ParsedNode[] => {
+  searchNode(targetNode, key, targetArray)
+  return targetArray
+}
+
+const searchNode = (targetNode: ParsedNode, key: string, targetArray: ParsedNode[] ) => {
+  targetNode.childNodes.forEach((node: ParsedNode) => {
     if (node.tagName === key) {
-      retArray.push(node)
+      targetArray.push(node)
     } else if (!!node.childNodes && 0 < node.childNodes.length) {
-      getTarget(node, key, retArray)
+      recursiveGetTarget(node, key, targetArray)
     }
   })
-  return retArray
 }
