@@ -101,7 +101,7 @@ const searchNode = (targetNode: ParsedNode, option: Option | string, targetArray
 	})
 }
 
-export const insert = (baseNode: ParsedNode, insertNode: ParsedNode, insertOption: InsertOption) => {
+export const insertNode = (baseNode: ParsedNode, insertNode: ParsedNode, insertOption: InsertOption): void => {
 	const targets = getTarget(baseNode, insertOption)
 	targets.forEach((node) => {
 		if (!!node.childNodes) {
@@ -114,5 +114,29 @@ export const insert = (baseNode: ParsedNode, insertNode: ParsedNode, insertOptio
 					break
 			}
 		}
+	})
+}
+
+export const deleteNode = (baseNode: ParsedNode, option: Option | string): void => {
+	baseNode.childNodes = baseNode.childNodes.filter((node: ParsedNode) => {
+		let returnFlag = true
+		if (typeof option === 'string') {
+			returnFlag = node.tagName !== option
+		}
+
+		if (isOption(option)) {
+			const key = convertTypeToKey(option.type)
+
+			if (isAttribute(option)) {
+				returnFlag = !hasMatchedAttribute(node, option.value)
+			} else if (node[key] === option.value) {
+				returnFlag = false
+			}
+		}
+
+		if (!!node.childNodes && 0 < node.childNodes.length) {
+			deleteNode(node, option)
+		}
+		return returnFlag
 	})
 }
