@@ -34,7 +34,7 @@ export const getTarget = (targetNode: ParsedNode, option: Option | string): Pars
 	return returnArray
 }
 
-export const recursiveGetTarget = (
+const recursiveGetTarget = (
 	targetNode: ParsedNode,
 	option: Option | string,
 	targetArray: ParsedNode[]
@@ -93,6 +93,15 @@ const searchNode = (targetNode: ParsedNode, option: Option | string, targetArray
 
 		if (!!node.childNodes && 0 < node.childNodes.length) {
 			recursiveGetTarget(node, option, targetArray)
+		}
+	})
+}
+
+export const insert = (baseNode: ParsedNode, insertNode: ParsedNode, option: Option | string) => {
+	const targets = getTarget(baseNode, option)
+	targets.forEach((node) => {
+		if (!!node.childNodes) {
+			node.childNodes.push(insertNode)
 		}
 	})
 }

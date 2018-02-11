@@ -1,5 +1,5 @@
 import parse5 = require('parse5')
-import { getTarget } from '../index'
+import { getTarget, insert } from '../index'
 
 describe('getTarget', () => {
 	test('return matched tag', async () => {
