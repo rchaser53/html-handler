@@ -55,4 +55,18 @@ describe('getTarget', () => {
 		expect(ret.length).toBe(1)
 		expect(ret[0].nodeName).toBe('script')
 	})
+
+	test('return nest node correctly', async () => {
+		const hlmlString = `<html>
+      <body>
+        <div>
+          <div></div>
+        </div>
+      </body>
+    </html>`
+
+		const ret = getTarget(parse5.parse(hlmlString), 'div')
+		expect(ret.length).toBe(2)
+		expect(ret.map((elem) => elem.nodeName)).toEqual(['div', 'div'])
+	})
 })

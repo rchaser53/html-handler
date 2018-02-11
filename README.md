@@ -11,7 +11,7 @@ const hlmlString = `<html>
   <head>
     <script></script>
   </head>
-</html>`;
+</html>`
 const ret = getTarget(parse5.parse(hlmlString), 'script')
 /*
 [ { nodeName: 'script',
@@ -19,7 +19,7 @@ const ret = getTarget(parse5.parse(hlmlString), 'script')
     attrs: [],
     namespaceURI: 'http://www.w3.org/1999/xhtml',
     childNodes: [],
-    parentNode: 
+    parentNode:
      { nodeName: 'head',
        tagName: 'head',
        attrs: [],
