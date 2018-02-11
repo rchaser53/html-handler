@@ -27,6 +27,10 @@ export interface AttributeOption {
 	value: Attribute
 }
 
+export interface InsertOption extends Option {
+	insertPosition: 'prepend' | 'append'
+}
+
 // just wanna decrease the parameters for developer
 export const getTarget = (targetNode: ParsedNode, option: Option | string): ParsedNode[] => {
 	let returnArray: ParsedNode[] = []
@@ -97,11 +101,18 @@ const searchNode = (targetNode: ParsedNode, option: Option | string, targetArray
 	})
 }
 
-export const insert = (baseNode: ParsedNode, insertNode: ParsedNode, option: Option | string) => {
-	const targets = getTarget(baseNode, option)
+export const insert = (baseNode: ParsedNode, insertNode: ParsedNode, insertOption: InsertOption) => {
+	const targets = getTarget(baseNode, insertOption)
 	targets.forEach((node) => {
 		if (!!node.childNodes) {
-			node.childNodes.push(insertNode)
+			switch (insertOption.insertPosition) {
+				case 'prepend':
+					node.childNodes.unshift(insertNode)
+					break
+				case 'append':
+					node.childNodes.push(insertNode)
+					break
+			}
 		}
 	})
 }
