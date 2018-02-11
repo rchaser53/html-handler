@@ -1,14 +1,72 @@
 import parse5 = require('parse5')
-import { insert } from '../index'
+import { getTarget } from '../index'
 
-describe('insert', () => {
-	test('insert arbitrary node', async () => {
-		const inputHlmlString = `<html><head></head><body></body></html>`
-		const expectedHtmlString = `<html><head></head><body><div></div></body></html>`
-		const divFrgment = parse5.parseFragment('<div></div>').childNodes.pop()
-		const document = parse5.parse(inputHlmlString)
+describe('getTarget', () => {
+	test('return matched tag', async () => {
+		const hlmlString = `<html>
+      <head>
+        <script></script>
+      </head>
+    </html>`
+		const ret = getTarget(parse5.parse(hlmlString), 'script')
+		expect(ret.length).toBe(1)
+		expect(ret[0].nodeName).toBe('script')
+	})
 
-		insert(document, divFrgment, 'body')
-		expect(parse5.serialize(document)).toBe(expectedHtmlString)
+	test('return empty array if not matched', async () => {
+		const hlmlString = `<html>
+      <head>
+        <script></script>
+      </head>
+    </html>`
+		const ret = getTarget(parse5.parse(hlmlString), 'div')
+		expect(ret.length).toBe(0)
+		expect(ret).toEqual([])
+	})
+
+	test('return node which tag name is script', async () => {
+		const hlmlString = `<html>
+      <head>
+        <script></script>
+      </head>
+    </html>`
+
+		const ret = getTarget(parse5.parse(hlmlString), { type: 'tag', value: 'script' })
+		expect(ret.length).toBe(1)
+		expect(ret[0].nodeName).toBe('script')
+	})
+
+	test("return node which attribute src is 'js/hoge.js'", async () => {
+		const hlmlString = `<html>
+      <head>
+        <script src="js/hoge.js"></script>
+        <script src="js/fuga.js"></script>
+        <link href="test"></link>
+      </head>
+    </html>`
+
+		const ret = getTarget(parse5.parse(hlmlString), {
+			type: 'attribute',
+			value: {
+				name: 'src',
+				value: 'js/hoge.js'
+			}
+		})
+		expect(ret.length).toBe(1)
+		expect(ret[0].nodeName).toBe('script')
+	})
+
+	test('return nest node correctly', async () => {
+		const hlmlString = `<html>
+      <body>
+        <div>
+          <div></div>
+        </div>
+      </body>
+    </html>`
+
+		const ret = getTarget(parse5.parse(hlmlString), 'div')
+		expect(ret.length).toBe(2)
+		expect(ret.map((elem) => elem.nodeName)).toEqual(['div', 'div'])
 	})
 })
