@@ -1,14 +1,14 @@
 import parse5 = require('parse5')
-import { getTarget } from '../index'
+import { getNodes } from '../index'
 
-describe('getTarget', () => {
+describe('getNodes', () => {
 	test('return matched tag', async () => {
 		const hlmlString = `<html>
       <head>
         <script></script>
       </head>
     </html>`
-		const ret = getTarget(parse5.parse(hlmlString), 'script')
+		const ret = getNodes(parse5.parse(hlmlString), 'script')
 		expect(ret.length).toBe(1)
 		expect(ret[0].nodeName).toBe('script')
 	})
@@ -19,7 +19,7 @@ describe('getTarget', () => {
         <script></script>
       </head>
     </html>`
-		const ret = getTarget(parse5.parse(hlmlString), 'div')
+		const ret = getNodes(parse5.parse(hlmlString), 'div')
 		expect(ret.length).toBe(0)
 		expect(ret).toEqual([])
 	})
@@ -31,7 +31,7 @@ describe('getTarget', () => {
       </head>
     </html>`
 
-		const ret = getTarget(parse5.parse(hlmlString), { type: 'tag', value: 'script' })
+		const ret = getNodes(parse5.parse(hlmlString), { type: 'tag', value: 'script' })
 		expect(ret.length).toBe(1)
 		expect(ret[0].nodeName).toBe('script')
 	})
@@ -45,7 +45,7 @@ describe('getTarget', () => {
       </head>
     </html>`
 
-		const ret = getTarget(parse5.parse(hlmlString), {
+		const ret = getNodes(parse5.parse(hlmlString), {
 			type: 'attribute',
 			value: {
 				name: 'src',
@@ -65,7 +65,7 @@ describe('getTarget', () => {
       </body>
     </html>`
 
-		const ret = getTarget(parse5.parse(hlmlString), 'div')
+		const ret = getNodes(parse5.parse(hlmlString), 'div')
 		expect(ret.length).toBe(2)
 		expect(ret.map((elem) => elem.nodeName)).toEqual(['div', 'div'])
 	})

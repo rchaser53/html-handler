@@ -32,9 +32,9 @@ export interface InsertOption extends Option {
 }
 
 // just wanna decrease the parameters for developer
-export const getTarget = (targetNode: ParsedNode, option: Option | string): ParsedNode[] => {
+export const getNodes = (targetNode: ParsedNode, option: Option | string): ParsedNode[] => {
 	let returnArray: ParsedNode[] = []
-	searchNode(targetNode, option, returnArray)
+	searchNodes(targetNode, option, returnArray)
 	return returnArray
 }
 
@@ -43,7 +43,7 @@ const recursiveGetTarget = (
 	option: Option | string,
 	targetArray: ParsedNode[]
 ): ParsedNode[] => {
-	searchNode(targetNode, option, targetArray)
+	searchNodes(targetNode, option, targetArray)
 	return targetArray
 }
 
@@ -75,7 +75,7 @@ const hasMatchedAttribute = (node: ParsedNode, option: Attribute): boolean => {
 	)
 }
 
-const searchNode = (targetNode: ParsedNode, option: Option | string, targetArray: ParsedNode[]) => {
+const searchNodes = (targetNode: ParsedNode, option: Option | string, targetArray: ParsedNode[]) => {
 	targetNode.childNodes.forEach((node: ParsedNode) => {
 		if (typeof option === 'string') {
 			if (node.tagName === option) {
@@ -101,8 +101,8 @@ const searchNode = (targetNode: ParsedNode, option: Option | string, targetArray
 	})
 }
 
-export const insertNode = (baseNode: ParsedNode, insertNode: ParsedNode, insertOption: InsertOption): void => {
-	const targets = getTarget(baseNode, insertOption)
+export const insertNodes = (baseNode: ParsedNode, insertNode: ParsedNode, insertOption: InsertOption): void => {
+	const targets = getNodes(baseNode, insertOption)
 	targets.forEach((node) => {
 		if (!!node.childNodes) {
 			switch (insertOption.insertPosition) {
@@ -117,7 +117,7 @@ export const insertNode = (baseNode: ParsedNode, insertNode: ParsedNode, insertO
 	})
 }
 
-export const deleteNode = (baseNode: ParsedNode, option: Option | string): void => {
+export const deleteNodes = (baseNode: ParsedNode, option: Option | string): void => {
 	baseNode.childNodes = baseNode.childNodes.filter((node: ParsedNode) => {
 		let returnFlag = true
 		if (typeof option === 'string') {
@@ -135,7 +135,7 @@ export const deleteNode = (baseNode: ParsedNode, option: Option | string): void 
 		}
 
 		if (!!node.childNodes && 0 < node.childNodes.length) {
-			deleteNode(node, option)
+			deleteNodes(node, option)
 		}
 		return returnFlag
 	})

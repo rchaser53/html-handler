@@ -1,8 +1,8 @@
 import parse5 = require('parse5')
-import { insertNode } from '../index'
+import { insertNodes } from '../index'
 import { trimWhiteSpace } from '../helper'
 
-describe('insertNode', () => {
+describe('insertNodes', () => {
 	test('insert arbitrary node', async () => {
 		const inputHlmlString = `
 <html>
@@ -21,7 +21,7 @@ describe('insertNode', () => {
 		const divFrgment = parse5.parseFragment('<div></div>').childNodes.pop()
 		const document = parse5.parse(inputHlmlString)
 
-		insertNode(document, divFrgment, {
+		insertNodes(document, divFrgment, {
 			type: 'tag',
 			value: 'body',
 			insertPosition: 'append'
@@ -50,7 +50,7 @@ describe('insertNode', () => {
 		const scriptFrgment = parse5.parseFragment('<script src="js/beforeTest.js"></script>').childNodes.pop()
 		const document = parse5.parse(inputHlmlString)
 
-		insertNode(document, scriptFrgment, {
+		insertNodes(document, scriptFrgment, {
 			type: 'tag',
 			value: 'head',
 			insertPosition: 'prepend'

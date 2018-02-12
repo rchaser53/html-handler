@@ -1,5 +1,5 @@
 import parse5 = require('parse5')
-import { deleteNode } from '../index'
+import { deleteNodes } from '../index'
 import { trimWhiteSpace } from '../helper'
 
 describe('deleteNode', () => {
@@ -20,7 +20,7 @@ describe('deleteNode', () => {
 `
 		const document = parse5.parse(inputHlmlString)
 
-		deleteNode(document, 'div')
+		deleteNodes(document, 'div')
 		expect(trimWhiteSpace(parse5.serialize(document))).toBe(trimWhiteSpace(expectedHtmlString))
 	})
 
@@ -46,7 +46,7 @@ describe('deleteNode', () => {
 </html>
 `
 		const document = parse5.parse(inputHlmlString)
-		deleteNode(document, 'table')
+		deleteNodes(document, 'table')
 		expect(trimWhiteSpace(parse5.serialize(document))).toBe(trimWhiteSpace(expectedHtmlString))
 	})
 })
