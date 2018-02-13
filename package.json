@@ -1,7 +1,7 @@
 {
 	"name": "html-handler",
-	"version": "0.0.4",
-	"description": "",
+	"version": "0.0.5",
+	"description": "parse5 wrapper to handle html node",
 	"main": "dest/index.js",
 	"scripts": {
 		"pretsc": "rimraf dest",
