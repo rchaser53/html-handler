@@ -128,6 +128,20 @@ export class HtmlHandler {
 	serialize(): string {
 		return parse5.serialize(this.node)
 	}
+
+	serializeHead(): string {
+		return parse5
+			.serialize(this.node)
+			.replace(/^(\s|\S)*\<head\>/, '')
+			.replace(/\<\/head\>(\s|\S)*$/, '')
+	}
+
+	serializeBody(): string {
+		return parse5
+			.serialize(this.node)
+			.replace(/^(\s|\S)*\<body\>/, '')
+			.replace(/\<\/body\>(\s|\S)*$/, '')
+	}
 }
 
 const isOption = (option: Option | string): option is Option => {
