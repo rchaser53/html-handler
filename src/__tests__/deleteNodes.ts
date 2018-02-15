@@ -1,5 +1,4 @@
-import parse5 = require('parse5')
-import { deleteNodes } from '../index'
+import { HtmlHandler } from '../index'
 import { trimWhiteSpace } from '../helper'
 
 describe('deleteNode', () => {
@@ -18,10 +17,9 @@ describe('deleteNode', () => {
   <body></body>
 </html>
 `
-		const document = parse5.parse(inputHlmlString)
-
-		deleteNodes(document, 'div')
-		expect(trimWhiteSpace(parse5.serialize(document))).toBe(trimWhiteSpace(expectedHtmlString))
+		const htmlHandler = new HtmlHandler(inputHlmlString)
+		htmlHandler.deleteNodes('div')
+		expect(trimWhiteSpace(htmlHandler.serialize())).toBe(trimWhiteSpace(expectedHtmlString))
 	})
 
 	test('delete arbitrary nest node', async () => {
@@ -45,8 +43,8 @@ describe('deleteNode', () => {
   <body></body>
 </html>
 `
-		const document = parse5.parse(inputHlmlString)
-		deleteNodes(document, 'table')
-		expect(trimWhiteSpace(parse5.serialize(document))).toBe(trimWhiteSpace(expectedHtmlString))
+		const htmlHandler = new HtmlHandler(inputHlmlString)
+		htmlHandler.deleteNodes('table')
+		expect(trimWhiteSpace(htmlHandler.serialize())).toBe(trimWhiteSpace(expectedHtmlString))
 	})
 })
