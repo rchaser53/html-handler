@@ -1,6 +1,6 @@
 {
 	"name": "html-handler",
-	"version": "0.0.5",
+	"version": "0.1.0",
 	"description": "parse5 wrapper to handle html node",
 	"main": "dest/index.js",
 	"scripts": {
