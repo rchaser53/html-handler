@@ -12,9 +12,9 @@ const hlmlString = `<!DOCTYPE html>
 const nodeTree = parse5.parse(hlmlString)
 const divFrgment = parse5.parseFragment('<script src="https://third/party.js"></script>').childNodes.pop()
 insertNodes(nodeTree, divFrgment, {
-  type: 'tag',
-  value: 'head',
-  insertPosition: 'prepend'
+	type: 'tag',
+	value: 'head',
+	insertPosition: 'prepend'
 })
 console.log(parse5.serialize(nodeTree))
 /*

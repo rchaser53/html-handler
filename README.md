@@ -4,6 +4,7 @@
 parse5 wrapper to handle html node.
 
 you can change html tag easily.
+
 ```js
 const parse5 = require('parse5')
 const { getNodes } = require('html-handler')
@@ -34,17 +35,19 @@ console.log(parse5.serialize(nodeTree))
 ```
 
 insert html tag
+
 ```js
 const nodeTree = parse5.parse(hlmlString)
 const divFrgment = parse5.parseFragment('<script src="https://third/party.js"></script>').childNodes.pop()
 insertNodes(nodeTree, divFrgment, {
-  type: 'tag',
-  value: 'head',
-  insertPosition: 'prepend'
+	type: 'tag',
+	value: 'head',
+	insertPosition: 'prepend'
 })
 ```
 
 delete html tag
+
 ```js
 const hlmlString = `<!DOCTYPE html>
 <html>
@@ -56,10 +59,10 @@ const hlmlString = `<!DOCTYPE html>
 
 const nodeTree = parse5.parse(hlmlString)
 deleteNodes(nodeTree, {
-  type: 'attribute',
-  value: {
-    name: 'class',
-    value: 'third party'
-  }
+	type: 'attribute',
+	value: {
+		name: 'class',
+		value: 'third party'
+	}
 })
 ```

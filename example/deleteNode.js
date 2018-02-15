@@ -11,11 +11,11 @@ const hlmlString = `<!DOCTYPE html>
 
 const nodeTree = parse5.parse(hlmlString)
 deleteNodes(nodeTree, {
-  type: 'attribute',
-  value: {
-    name: 'class',
-    value: 'third party'
-  }
+	type: 'attribute',
+	value: {
+		name: 'class',
+		value: 'third party'
+	}
 })
 console.log(parse5.serialize(nodeTree))
 /*

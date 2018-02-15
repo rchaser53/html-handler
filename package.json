@@ -1,6 +1,6 @@
 {
 	"name": "html-handler",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "parse5 wrapper to handle html node",
 	"main": "dest/index.js",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"prettier": "prettier --write \"**/*.{md,js,ts,json}\" && git add .",
 		"test": "jest --runInBand --coverage",
 		"precommit": "lint-staged",
-		"prepublishOnly": "npm run prettier && npm run test && npm run tsc"
+		"prepublishOnly": "npm run prettier && npm run test && npm run tsc && cp dest/index.d.ts ./index.d.ts"
 	},
 	"repository": {
 		"type": "git",
