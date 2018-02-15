@@ -1,5 +1,4 @@
-const parse5 = require('parse5')
-const { getNodes } = require('../dest/index.js')
+const { HtmlHandler } = require('../dest/index.js')
 
 const hlmlString = `<!DOCTYPE html>
 <html>
@@ -9,12 +8,12 @@ const hlmlString = `<!DOCTYPE html>
   <body></body>
 </html>`
 
-let nodeTree = parse5.parse(hlmlString)
-let targetNode = getNodes(nodeTree, 'script')
+const htmlHandler = new HtmlHandler(hlmlString)
+let targetNode = htmlHandler.getNodes('script')
 
 // change node whatever you want
 targetNode[0].attrs[0].value = 'https://awesome-cdn/' + targetNode[0].attrs[0].value
-console.log(parse5.serialize(nodeTree))
+console.log(htmlHandler.serialize())
 /*
 <!DOCTYPE html>
 <html>

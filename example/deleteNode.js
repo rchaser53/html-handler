@@ -1,5 +1,4 @@
-const parse5 = require('parse5')
-const { deleteNodes } = require('../dest/index.js')
+const { HtmlHandler } = require('../dest/index.js')
 
 const hlmlString = `<!DOCTYPE html>
 <html>
@@ -9,15 +8,15 @@ const hlmlString = `<!DOCTYPE html>
   </body>
 </html>`
 
-const nodeTree = parse5.parse(hlmlString)
-deleteNodes(nodeTree, {
+const htmlHandler = new HtmlHandler(hlmlString)
+htmlHandler.deleteNodes({
 	type: 'attribute',
 	value: {
 		name: 'class',
 		value: 'third party'
 	}
 })
-console.log(parse5.serialize(nodeTree))
+console.log(htmlHandler.serialize())
 /*
 <!DOCTYPE html>
 <html>

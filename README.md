@@ -6,8 +6,7 @@ parse5 wrapper to handle html node.
 you can change html tag easily.
 
 ```js
-const parse5 = require('parse5')
-const { getNodes } = require('html-handler')
+const { HtmlHandler } = require('../dest/index.js')
 
 const hlmlString = `<!DOCTYPE html>
 <html>
@@ -17,12 +16,12 @@ const hlmlString = `<!DOCTYPE html>
   <body></body>
 </html>`
 
-let nodeTree = parse5.parse(hlmlString)
-let targetNode = getNodes(nodeTree, 'script')
+const htmlHandler = new HtmlHandler(hlmlString)
+let targetNode = htmlHandler.getNodes('script')
 
 // change node whatever you want
 targetNode[0].attrs[0].value = 'https://awesome-cdn/' + targetNode[0].attrs[0].value
-console.log(parse5.serialize(nodeTree))
+console.log(htmlHandler.serialize())
 /*
 <!DOCTYPE html>
 <html>
@@ -37,9 +36,9 @@ console.log(parse5.serialize(nodeTree))
 insert html tag
 
 ```js
-const nodeTree = parse5.parse(hlmlString)
-const divFrgment = parse5.parseFragment('<script src="https://third/party.js"></script>').childNodes.pop()
-insertNodes(nodeTree, divFrgment, {
+const htmlHandler = new HtmlHandler(hlmlString)
+const divFrgment = htmlHandler.parseFragment('<script src="https://third/party.js"></script>')
+htmlHandler.insertNodes(divFrgment, {
 	type: 'tag',
 	value: 'head',
 	insertPosition: 'prepend'
@@ -57,8 +56,8 @@ const hlmlString = `<!DOCTYPE html>
   </body>
 </html>`
 
-const nodeTree = parse5.parse(hlmlString)
-deleteNodes(nodeTree, {
+const htmlHandler = new HtmlHandler(hlmlString)
+htmlHandler.deleteNodes({
 	type: 'attribute',
 	value: {
 		name: 'class',

@@ -1,5 +1,4 @@
-const parse5 = require('parse5')
-const { insertNodes } = require('../dest/index.js')
+const { HtmlHandler } = require('../dest/index.js')
 
 const hlmlString = `<!DOCTYPE html>
 <html>
@@ -9,14 +8,14 @@ const hlmlString = `<!DOCTYPE html>
   <body></body>
 </html>`
 
-const nodeTree = parse5.parse(hlmlString)
-const divFrgment = parse5.parseFragment('<script src="https://third/party.js"></script>').childNodes.pop()
-insertNodes(nodeTree, divFrgment, {
+const htmlHandler = new HtmlHandler(hlmlString)
+const divFrgment = htmlHandler.parseFragment('<script src="https://third/party.js"></script>')
+htmlHandler.insertNodes(divFrgment, {
 	type: 'tag',
 	value: 'head',
 	insertPosition: 'prepend'
 })
-console.log(parse5.serialize(nodeTree))
+console.log(htmlHandler.serialize())
 /*
 <!DOCTYPE html>
 <html>
